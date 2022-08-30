@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+    wbapp:
+        build:
+            context: .
+            dockerfile: .docker/Dockerfile
+        image: 'wbapp'
+        volumes:
+            - ./:/var/www/html
+    db:
+        image: postgres:latest
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: "wb"
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "admin"
+        volumes:
+            - wb-db:/var/lib/postgresql/data
+volumes:
+    wb-db:
