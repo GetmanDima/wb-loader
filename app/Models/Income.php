@@ -9,6 +9,8 @@ class Income extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'incomeid', 'Number', 'date',
         'lastChangeDate', 'supplierArticle', 'techSize',

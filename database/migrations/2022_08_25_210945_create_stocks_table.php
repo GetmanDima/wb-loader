@@ -36,8 +36,6 @@ return new class extends Migration
             $table->unsignedBigInteger('warehouse');
             $table->float('Price');
             $table->integer('Discount');
-
-            $table->timestamps();
         });
     }
 

@@ -35,8 +35,6 @@ return new class extends Migration
             $table->string('gNumber', 50);
             $table->string('sticker');
             $table->string('srid');
-
-            $table->timestamps();
         });
     }
 

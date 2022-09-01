@@ -10,6 +10,8 @@ class Stock extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'lastChangeDate', 'supplierArticle', 'techSize',
         'barcode', 'quantity', 'isSupply', 'isRealization',

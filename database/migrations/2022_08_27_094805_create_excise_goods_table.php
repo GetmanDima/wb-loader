@@ -25,8 +25,6 @@ return new class extends Migration
             $table->string('regNumber');
             $table->string('excise');
             $table->dateTime('date');
-
-            $table->timestamps();
         });
     }
 

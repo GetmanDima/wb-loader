@@ -65,8 +65,6 @@ return new class extends Migration
             $table->integer('penalty');
             $table->integer('additional_payment');
             $table->string('srid')->nullable();
-
-            $table->timestamps();
         });
     }
 

@@ -9,6 +9,8 @@ class Report extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'date_from', 'date_to', 'realizationreport_id',
         'suppliercontract_code', 'rrd_id', 'gi_id',
