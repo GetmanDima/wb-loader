@@ -7,16 +7,17 @@ services:
         image: 'wbapp'
         volumes:
             - ./:/var/www/html
-    db:
-        image: postgres:latest
+    wbdb:
+        image: mysql:5.7
         restart: always
         ports:
-            - "5432:5432"
+            - "3306:3306"
         environment:
-            POSTGRES_DB: "wb"
-            POSTGRES_USER: "postgres"
-            POSTGRES_PASSWORD: "admin"
+            MYSQL_DATABASE: "wb"
+            MYSQL_ROOT_PASSWORD: "admin"
+            MYSQL_USER: "wbuser"
+            MYSQL_PASSWORD: "admin"
         volumes:
-            - wb-db:/var/lib/postgresql/data
+            - wb-mysql:/var/lib/mysql
 volumes:
-    wb-db:
+    wb-mysql:

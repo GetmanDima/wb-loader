@@ -13,10 +13,10 @@ RUN apt-get update && apt-get install -y \
         zip \
         curl \
         unzip \
-        libpq-dev \
     && docker-php-ext-configure gd \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install pdo pdo_pgsql pgsql \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install mysqli \
     && docker-php-ext-install zip \
     && docker-php-source delete
 
