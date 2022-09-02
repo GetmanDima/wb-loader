@@ -1,7 +1,5 @@
 FROM php:8.1.0-fpm
 
-USER root
-
 WORKDIR /var/www/html
 
 RUN apt-get update && apt-get install -y \
@@ -22,4 +20,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+COPY ./ /var/www/html
 RUN chown -R www-data:www-data /var/www/html
+
+USER 'www-data'

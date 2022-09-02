@@ -5,8 +5,6 @@ services:
             context: .
             dockerfile: .docker/Dockerfile
         image: 'wbapp'
-        volumes:
-            - ./:/var/www/html
     wbdb:
         image: mysql:5.7
         restart: always
