@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('incomeid');
             $table->string('Number', 40);
             $table->date('date');
-            $table->dateTime('lastChangeDate');
+            $table->dateTime('lastChangeDate', 3);
             $table->string('supplierArticle', 75);
             $table->string('techSize', 30);
             $table->string('barcode', 30);

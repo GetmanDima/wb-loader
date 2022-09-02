@@ -25,6 +25,7 @@ class WBJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private const RFC_TIME_FORMAT = "Y-m-d\TH:i:s.u";
     private ?string $apiUrl;
     private ?string $apiKey;
     private Carbon $defaultDateFrom;
@@ -69,7 +70,7 @@ class WBJob implements ShouldQueue
     private function handleIncomes()
     {
         try {
-            $rfcDateFrom = $this->dateOrDefaultToRfc($this->getIncomesDateFrom());
+            $rfcDateFrom = $this->dateTimeOrDefaultToRfc($this->getIncomesDateFrom());
             $incomes = $this->fetchIncomes($rfcDateFrom);
 
             if (count($incomes) === 0) {
@@ -87,7 +88,7 @@ class WBJob implements ShouldQueue
     private function handleStocks()
     {
         try {
-            $rfcDateFrom = $this->dateOrDefaultToRfc($this->getStocksDateFrom());
+            $rfcDateFrom = $this->dateTimeOrDefaultToRfc($this->getStocksDateFrom());
             $stocks = $this->fetchStocks($rfcDateFrom);
 
             if (count($stocks) === 0) {
@@ -105,7 +106,7 @@ class WBJob implements ShouldQueue
     private function handleOrders()
     {
         try {
-            $rfcDateFrom = $this->dateOrDefaultToRfc($this->getOrdersDateFrom());
+            $rfcDateFrom = $this->dateTimeOrDefaultToRfc($this->getOrdersDateFrom());
             $orders = $this->fetchOrders($rfcDateFrom);
 
             if (count($orders) === 0) {
@@ -123,7 +124,7 @@ class WBJob implements ShouldQueue
     private function handleSales()
     {
         try {
-            $rfcDateFrom = $this->dateOrDefaultToRfc($this->getSalesDateFrom());
+            $rfcDateFrom = $this->dateTimeOrDefaultToRfc($this->getSalesDateFrom());
             $sales = $this->fetchSales($rfcDateFrom);
 
             if (count($sales) === 0) {
@@ -141,7 +142,7 @@ class WBJob implements ShouldQueue
     private function handleExciseGoods()
     {
         try {
-            $rfcDateFrom = $this->dateOrDefaultToRfc($this->getExciseGoodsDateFrom());
+            $rfcDateFrom = $this->dateTimeOrDefaultToRfc($this->getExciseGoodsDateFrom());
             $exciseGoods = $this->fetchExciseGoods($rfcDateFrom);
 
             if (count($exciseGoods) === 0) {
@@ -159,8 +160,8 @@ class WBJob implements ShouldQueue
     private function handleReports()
     {
         try {
-            $rfcDateFrom = $this->dateOrDefaultToRfc($this->getReportsDateFrom());
-            $reports = $this->fetchReports($rfcDateFrom, $this->dateToRfc(new Carbon()));
+            $rfcDateFrom = $this->dateTimeOrDefaultToRfc($this->getReportsDateFrom());
+            $reports = $this->fetchReports($rfcDateFrom, $this->dateTimeToRfc(new Carbon()));
 
             if (count($reports) === 0) {
                 $this->log->info("New reports not found. Date from: $rfcDateFrom");
@@ -584,16 +585,16 @@ class WBJob implements ShouldQueue
         return $this->apiUrl . $path . '?key=' . $this->apiKey;
     }
 
-    private function dateToRfc(Carbon $date): string
+    private function dateTimeToRfc(Carbon $date): string
     {
-        return $date->format(DateTimeInterface::RFC3339);
+        return $date->format(self::RFC_TIME_FORMAT);
     }
 
-    private function dateOrDefaultToRfc(?Carbon $date): string
+    private function dateTimeOrDefaultToRfc(?Carbon $date): string
     {
         return is_null($date) ?
-            $this->dateToRfc($this->defaultDateFrom) :
-            $this->dateToRfc($date);
+            $this->dateTimeToRfc($this->defaultDateFrom) :
+            $this->dateTimeToRfc($date);
     }
 
     private function rfcToDate($rfcDate): Carbon|bool

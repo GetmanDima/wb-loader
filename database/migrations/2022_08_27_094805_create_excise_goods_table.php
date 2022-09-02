@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('fnNumber');
             $table->string('regNumber');
             $table->string('excise');
-            $table->dateTime('date');
+            $table->dateTime('date', 3);
         });
     }
 

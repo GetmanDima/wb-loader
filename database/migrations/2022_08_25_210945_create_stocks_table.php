@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('lastChangeDate');
+            $table->dateTime('lastChangeDate', 3);
             $table->string('supplierArticle', 75);
             $table->string('techSize', 30);
             $table->string('barcode', 30);
